@@ -11,6 +11,10 @@
 // @license MIT
 // ==/UserScript==
 
+// Need unsafeWindow to replace fetch
+// For webview, unsafeWindow doesn't exists.
+const w = unsafeWindow;
+
 const emailAddr = "guest@fknc.top";
 const userId = "000d9a00-254f-41d3-a181-19d2afd2a1b9";
 const identityId = "7aaf0e36-94d8-4453-becf-b8868f85af34";
@@ -86,9 +90,6 @@ const localRecord = () => {
 
     // Bypass login
     localStorage.setItem(storageKey, JSON.stringify(localRecord()));
-
-    // Need unsafeWindow to replace fetch
-    const w = unsafeWindow;
 
     if (w === undefined || w === null) {
         console.log("Unable to obtain unsafeWindow, early abort!");

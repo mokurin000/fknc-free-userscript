@@ -2,7 +2,7 @@
 // @name         Bypass paywall of fknc.top
 // @name:zh      绕过疯狂农场价格计算器付费墙
 // @namespace    mokurin000
-// @version      1.5
+// @version      1.6
 // @description     Infinite free trial for fknc.top
 // @description:zh  fknc.top 无限免费试用
 // @match        https://www.fknc.top/
@@ -97,7 +97,7 @@ const localRecord = () => {
 
     // Disable realtime stats update
     w.WebSocket = undefined;
-    
+
     const origFetch = w.fetch;
 
     w.fetch = async (...args) => {
@@ -120,19 +120,6 @@ const localRecord = () => {
             mockBody = JSON.stringify({
                 allowed: true
             });
-        } else if (parsed.pathname === "/rest/v1/rpc/set_display_name") {
-            // Support custom nickname
-            const newNickName = JSON.parse(init.body)?.p_display_name;
-
-            if (newNickName !== null && newNickName != nickName) {
-                nickName = newNickName;
-                localStorage.setItem("nick-name", newNickName);
-                localStorage.setItem(storageKey, JSON.stringify(localRecord()));
-            }
-
-            mockBody = JSON.stringify({
-                ok: true
-            });
         } else if (parsed.pathname === "/rest/v1/rpc/get_my_subscription") {
             // Spoof premium expiry time
             mockBody = JSON.stringify({
@@ -147,6 +134,19 @@ const localRecord = () => {
             mockBody = JSON.stringify({
                 ok: true
             });
+        } else if (parsed.pathname === "/rest/v1/rpc/set_display_name") {
+            // Support custom nickname
+            const newNickName = JSON.parse(init.body)?.p_display_name;
+
+            if (newNickName !== null && newNickName != nickName) {
+                nickName = newNickName;
+                localStorage.setItem("nick-name", newNickName);
+                localStorage.setItem(storageKey, JSON.stringify(localRecord()));
+            }
+
+            mockBody = JSON.stringify({
+                ok: true
+            });
         } else if (parsed.pathname === "/auth/v1/user") {
             // Support custom avatar
             const newAvatarIndex = JSON.parse(init.body)?.data?.avatar_index;
@@ -158,6 +158,14 @@ const localRecord = () => {
             localStorage.setItem(storageKey, JSON.stringify(localRecord()));
 
             mockBody = JSON.stringify(userMetadata());
+        } else if (parsed.pathname === "/rest/v1/price_feedback") {
+            returnCode = 401;
+            mockBody = JSON.stringify({
+                code: "PGRST301",
+                details: null,
+                hint: null,
+                message: "暂未支持反馈计算结果！"
+            });
         }
 
         if (mockBody === null) {

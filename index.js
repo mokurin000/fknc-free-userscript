@@ -191,22 +191,24 @@ const localRecord = () => {
 })();
 
 // apply custom stylesheet
-const styleSheet = document.createElement('style');
-styleSheet.textContent = `
-  /* Hide logout button */
-  div.user-center-section-danger
-  /* Hide premium subscription */
-  , div.user-center-section:nth-child(2) > div.user-center-membership > button
-  /* Hide user feedback */
-  , button.contact-option-button:nth-child(3)
-  /* Hide invite, top list */
-  , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(2)
-  , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(3)
-  /* Hide feedback button */
-  , div.calculator-result-fixed > div.gradient-button
-  {
-    display: none !important;
-  }
+window.addEventListener("DOMContentLoaded", () => {
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = `
+    /* Hide logout button */
+    div.user-center-section-danger
+    /* Hide premium subscription */
+    , div.user-center-section:nth-child(2) > div.user-center-membership > button
+    /* Hide user feedback */
+    , button.contact-option-button:nth-child(3)
+    /* Hide invite, top list */
+    , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(2)
+    , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(3)
+    /* Hide feedback button */
+    , div.calculator-result-fixed > div.gradient-button
+    {
+        display: none !important;
+    }
 
-`;
-document.documentElement.appendChild(styleSheet);
+    `;
+    document.documentElement.appendChild(styleSheet);
+});

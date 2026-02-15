@@ -13,7 +13,7 @@
 
 // Need unsafeWindow to replace fetch
 // For webview, unsafeWindow doesn't exists.
-const w = unsafeWindow;
+const w = 'undefined' === typeof GM_info ? window : unsafeWindow;
 
 const emailAddr = "guest@fknc.top";
 const userId = "000d9a00-254f-41d3-a181-19d2afd2a1b9";

@@ -202,6 +202,8 @@ styleSheet.textContent = `
   /* Hide invite, top list */
   , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(2)
   , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(3)
+  /* Hide feedback button */
+  , div.calculator-result-fixed > div.gradient-button
   {
     display: none !important;
   }

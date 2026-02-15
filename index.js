@@ -2,7 +2,7 @@
 // @name         Bypass paywall of fknc.top
 // @name:zh      绕过疯狂农场价格计算器付费墙
 // @namespace    mokurin000
-// @version      1.6
+// @version      1.7
 // @description     Infinite free trial for fknc.top
 // @description:zh  fknc.top 无限免费试用
 // @match        https://www.fknc.top/
@@ -159,13 +159,19 @@ const localRecord = () => {
             localStorage.setItem(storageKey, JSON.stringify(localRecord()));
 
             mockBody = JSON.stringify(userMetadata());
-        } else if (parsed.pathname === "/rest/v1/price_feedback") {
+        } else if ([
+            "/rest/v1/price_feedback",
+            "/rest/v1/rpc/get_user_query_leaderboard",
+            "/rest/v1/rpc/get_membership_leaderboard",
+            "/rest/v1/rpc/get_or_create_invite_code",
+            "/rest/v1/rpc/get_my_invite_stats",
+        ].includes(parsed.pathname)) {
             returnCode = 401;
             mockBody = JSON.stringify({
                 code: "PGRST301",
                 details: null,
                 hint: null,
-                message: "暂未支持反馈计算结果！"
+                message: "暂未支持该操作！"
             });
         }
 

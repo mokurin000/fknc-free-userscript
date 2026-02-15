@@ -160,6 +160,7 @@ const localRecord = () => {
 
             mockBody = JSON.stringify(userMetadata());
         } else if ([
+            "/rest/v1/user_feedback",
             "/rest/v1/price_feedback",
             "/rest/v1/rpc/get_user_query_leaderboard",
             "/rest/v1/rpc/get_membership_leaderboard",
@@ -189,11 +190,21 @@ const localRecord = () => {
     };
 })();
 
-// Hide logout button
-const hideLogout = document.createElement('style');
-hideLogout.textContent = `
-  div.user-center-section-danger {
+// apply custom stylesheet
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+  /* Hide logout button */
+  div.user-center-section-danger
+  /* Hide premium subscription */
+  , div.user-center-section:nth-child(2) > div.user-center-membership > button
+  /* Hide user feedback */
+  , button.contact-option-button:nth-child(3)
+  /* Hide invite, top list */
+  , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(2)
+  , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(3)
+  {
     display: none !important;
   }
+
 `;
-document.documentElement.appendChild(hideLogout);
+document.documentElement.appendChild(styleSheet);

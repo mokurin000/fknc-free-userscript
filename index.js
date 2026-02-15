@@ -85,12 +85,6 @@ const localRecord = () => {
 (function () {
     'use strict';
 
-    // Hide the invite code popup
-    localStorage.setItem("invite_modal_first_shown", "1");
-
-    // Bypass login
-    localStorage.setItem(storageKey, JSON.stringify(localRecord()));
-
     if (w === undefined || w === null) {
         console.log("Unable to obtain unsafeWindow, early abort!");
         return;
@@ -98,6 +92,12 @@ const localRecord = () => {
 
     // Disable realtime stats update
     w.WebSocket = undefined;
+
+
+    // Hide the invite code popup
+    localStorage.setItem("invite_modal_first_shown", "1");
+    // Bypass login
+    localStorage.setItem(storageKey, JSON.stringify(localRecord()));
 
     const origFetch = w.fetch;
 

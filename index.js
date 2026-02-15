@@ -2,7 +2,7 @@
 // @name         Bypass paywall of fknc.top
 // @name:zh      绕过疯狂农场价格计算器付费墙
 // @namespace    mokurin000
-// @version      1.8
+// @version      1.9
 // @description     Infinite free trial for fknc.top
 // @description:zh  fknc.top 无限免费试用
 // @match        https://www.fknc.top/
@@ -210,7 +210,11 @@ window.addEventListener("DOMContentLoaded", () => {
     {
         display: none !important;
     }
-
+    
+    /* Margin padding of footer */
+    div.crop-selector {
+        margin-bottom: 16px;
+    }
     `;
     document.documentElement.appendChild(styleSheet);
 });

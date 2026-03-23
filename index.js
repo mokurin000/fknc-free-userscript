@@ -2,7 +2,7 @@
 // @name         Bypass paywall of fknc.top
 // @name:zh      绕过疯狂农场价格计算器付费墙
 // @namespace    mokurin000
-// @version      1.9
+// @version      1.10
 // @description     Infinite free trial for fknc.top
 // @description:zh  fknc.top 无限免费试用
 // @match        https://www.fknc.top/
@@ -121,6 +121,9 @@ const localRecord = () => {
             mockBody = JSON.stringify({
                 allowed: true
             });
+        } else if (parsed.pathname === "/rest/v1/user_profiles") {
+            // Spoof phone number
+            mockBody = JSON.stringify([{phone: 110}]);
         } else if (parsed.pathname === "/rest/v1/rpc/get_my_subscription") {
             // Spoof premium expiry time
             mockBody = JSON.stringify({
@@ -200,9 +203,10 @@ window.addEventListener("DOMContentLoaded", () => {
     , div.user-center-section:nth-child(2) > div.user-center-membership > button
     /* Hide user feedback */
     , button.contact-option-button:nth-child(3)
-    /* Hide invite, top list */
+    /* Hide phone, invite, top list */
     , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(2)
     , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(3)
+    , div.user-center-section:nth-child(3) > div.user-center-item-list > button.user-center-item:nth-child(4)
     /* Hide feedback button */
     , div.calculator-result-fixed > div.gradient-button
     /* Hide footer links */
@@ -210,7 +214,7 @@ window.addEventListener("DOMContentLoaded", () => {
     {
         display: none !important;
     }
-    
+
     /* Margin padding of footer */
     div.crop-selector {
         margin-bottom: 16px;

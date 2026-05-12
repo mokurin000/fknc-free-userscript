@@ -2,7 +2,7 @@
 // @name         Bypass paywall of fknc.top Minified
 // @name:zh      绕过疯狂农场价格计算器付费墙 精简版
 // @namespace    mokurin000
-// @version      1.9
+// @version      2.0
 // @description     Infinite free trial for fknc.top
 // @description:zh  fknc.top 无限免费试用
 // @match        https://www.fknc.top/
@@ -50,9 +50,10 @@ const w = 'undefined' === typeof GM_info ? window : unsafeWindow;
             mockBody = JSON.stringify({
                 ok: true
             });
-        } else if (parsed.pathname === "/rest/v1/crop_daily_stats" && init?.method === 'PATCH') {
-            // Disable stats update query
-            mockBody = "";
+        } else if (parsed.pathname === "/rest/v1/crop_daily_stats") {
+            // Disable user query log
+            mockBody = "{}";
+            returnCode = 400;
         }
 
         if (mockBody === null) {
